@@ -42,4 +42,6 @@ function addToCount() {
     cookieCount.innerHTML = count;
 }
 
-setInterval(addToCount, 1000);
+setInterval(addToCount, 1000); //have this setInterval method run when the first "grandma" is bought rather than off rip.
+//Also probably lower the multipliers for now so the first "grandma" item that we buy only generates +0.1/sec instead of 1 straight up.
+//Lets just try to solidify the clicker and the first "grandma" generator first along with the upgrades to both the clicker and "grandma"
