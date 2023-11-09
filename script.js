@@ -1,5 +1,8 @@
-let click = 1;
-
+// adders is an object with objects inside of it
+// each subobject contains: 
+//      multiplier(amount per adder)
+//      amount(number of type)
+//      cost(cost to buy the next one)
 let adders = {
     adder1: { multiplier: 1,
               amount: 1,
@@ -23,23 +26,24 @@ let adders = {
             }
 };
 
+let count = 0; // global count of all cookies
+let click = 1; // how much each click gives
 let cookieCount = document.getElementById('count');
-
 let cookie = document.getElementById('click');
-let count = 0;
 
+// when the cookie is clicked the global count variable is added to by how much click is
 cookie.onclick = function() {
     count += click;
-    cookieCount.innerHTML = count;
+    cookieCount.innerHTML = count; // changes the html of the cookieCount variable
 }
 
 function addToCount() {
-    for(let adder in adders) {
-        multiplier = adders[adder].multiplier;
-        amount = adders[adder].amount;
-        count += amount * multiplier;
+    for(let adder in adders) { // loops through all the adder objects 
+        multiplier = adders[adder].multiplier; // gets the multiplier from the subobject
+        amount = adders[adder].amount; // gets the amout from the subobject
+        count += amount * multiplier; // adds to the count variable
     }
-    cookieCount.innerHTML = count;
+    cookieCount.innerHTML = count; // after all addition is done the count is updated in the html
 }
 
 setInterval(addToCount, 1000); //have this setInterval method run when the first "grandma" is bought rather than off rip.
