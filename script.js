@@ -7,8 +7,8 @@
 
 let adders = {
     adder1: { multiplier: .1,
-              amount: 1,
-              cost: 50
+              amount: 0,
+              cost: 10
             },
     adder2: { multiplier: 1,
               amount: 0,
@@ -32,35 +32,45 @@ var globalCount = 0; // global count of all cookies
 var click = 1; // how much each click gives
 var cookieCount = document.getElementById('count');
 var cookie = document.getElementById('click');
-var workingAdders = new Set(); // all the functioning adders (set so no duplicates)
 var cookiesPerSecond = 0;
+const buySticks = document.getElementById('click-helper');
 
 function updateCookieDisplay() {
     cookieCount.innerHTML = globalCount.toFixed(1); // changes the html of the cookieCount variable
 }
+
 // when the cookie is clicked the global count variable is added to by how much click is
 cookie.onclick = function() {
     globalCount += click;
     updateCookieDisplay();
 }
 
-function startAdding() { // if the count of an adder is > 0 its added to the workingAdders set
-    for(let item in adders) {
-        if(adders[item].amount > 0) {
-            workingAdders.add(adders[item]);
-        }
-    }
-}
+// function startAdding() { // if the count of an adder is > 0 its added to the workingAdders set
+//     for(let item in adders) {
+//         if(adders[item].amount > 0) {
+//             workingAdders.add(adders[item]);
+//         }
+//     }
+// }
 
-const addToCount = () => { // arrow function (no params)
-    console.log(workingAdders);
-    workingAdders.forEach(function(adder) { // for each with anonymous function that adds to the global count for each element in the set
-        let cookiesBaked = adder.multiplier * adder.amount;
-        globalCount += cookiesBaked;
-        totalCookiesBaked += cookiesBaked;
-        updateCookieDisplay(); // modifies the count html
-    });
+// const addToCount = () => { // arrow function (no params)
+//     console.log(workingAdders);
+//     workingAdders.forEach(function(adder) { // for each with anonymous function that adds to the global count for each element in the set
+//         let cookiesBaked = adder.multiplier * adder.amount;
+//         globalCount += cookiesBaked;
+//         totalCookiesBaked += cookiesBaked;
+//         updateCookieDisplay(); // modifies the count html
+//     });
+// };
+
+
+const addToCount = () => {
+    Object.values(adders).forEach(adder => { // for each to loop through each value in the adder object
+        globalCount += adder.multiplier * adder.amount; // adds to the global count
+        updateCookieDisplay();
+   });
 };
+
 
 const perSecond = () => { // calculates cookies per second
     let cps = 0;
@@ -68,25 +78,32 @@ const perSecond = () => { // calculates cookies per second
     cookiesPerSecond = cps; // assigns cookies per second to global version
 };
 
-const buySticks = document.getElementById('click-helper')
 let stickCost = 10; //change this later to adder.adder1.cost
 let stickCount = 0;
 
-buySticks.addEventListener('click', () => {
-    if (globalCount >= stickCost) //if you have enough yarn, you are able to buy sticks
-    {
-        globalCount -= stickCost; //subtract current cookies by the cost of the sticks
-        stickCount++; //delete this after adder.adder1.amount is working
-        adder.adder1.amount += 1; //need this to auto-update
-        stickCost = Math.ceil(stickCost * 1.2); //stick
-        updateCookieDisplay();
+// buySticks.addEventListener('click', () => {
+//     if (globalCount >= stickCost) //if you have enough yarn, you are able to buy sticks
+//     {
+//         globalCount -= stickCost; //subtract current cookies by the cost of the sticks
+
+//         // stickCount++; //delete this after adder.adder1.amount is working
+//         adder.adder1.amount += 1; //need this to auto-update
+//         stickCost = Math.ceil(stickCost * 1.2); //stick
+//         updateCookieDisplay();
+//     }
+//     else
+//     {
+//         alert('Not enough yarn!');
+//     }
+// });
+
+buySticks.addEventListener('click', function() {
+    if(globalCount >= adders.adder1.cost) {
+        globalCount -= adders.adder1.cost; // subtract cost of adder
+        adders.adder1.amount++; // increase num of adders
+        adders.adder1.cost *= 1.2; // increase cost of adder
     }
-    else
-    {
-        alert('Not enough yarn!');
-    }
-})
+});
 
 
-setInterval(startAdding, 100);
 setInterval(addToCount, 1000);
