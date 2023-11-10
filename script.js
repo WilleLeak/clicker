@@ -35,10 +35,13 @@ var cookie = document.getElementById('click');
 var workingAdders = new Set(); // all the functioning adders (set so no duplicates)
 var cookiesPerSecond = 0;
 
+function updateCookieDisplay() {
+    cookieCount.innerHTML = globalCount.toFixed(1); // changes the html of the cookieCount variable
+}
 // when the cookie is clicked the global count variable is added to by how much click is
 cookie.onclick = function() {
     globalCount += click;
-    cookieCount.innerHTML = globalCount.toFixed(1); // changes the html of the cookieCount variable
+    updateCookieDisplay();
 }
 
 function startAdding() { // if the count of an adder is > 0 its added to the workingAdders set
@@ -55,7 +58,7 @@ const addToCount = () => { // arrow function (no params)
         let cookiesBaked = adder.multiplier * adder.amount;
         globalCount += cookiesBaked;
         totalCookiesBaked += cookiesBaked;
-        cookieCount.innerHTML = globalCount.toFixed(1); // modifies the count html
+        updateCookieDisplay(); // modifies the count html
     });
 };
 
@@ -65,9 +68,25 @@ const perSecond = () => { // calculates cookies per second
     cookiesPerSecond = cps; // assigns cookies per second to global version
 };
 
+const buySticks = document.getElementById('click-helper')
+let stickCost = 10; //change this later to adder.adder1.cost
+let stickCount = 0;
+
+buySticks.addEventListener('click', () => {
+    if (globalCount >= stickCost) //if you have enough yarn, you are able to buy sticks
+    {
+        globalCount -= stickCost; //subtract current cookies by the cost of the sticks
+        stickCount++; //delete this after adder.adder1.amount is working
+        adder.adder1.amount += 1; //need this to auto-update
+        stickCost = Math.ceil(stickCost * 1.2); //stick
+        updateCookieDisplay();
+    }
+    else
+    {
+        alert('Not enough yarn!');
+    }
+})
+
 
 setInterval(startAdding, 100);
 setInterval(addToCount, 1000);
- //have this setInterval method run when the first "grandma" is bought rather than off rip.
-//Also probably lower the multipliers for now so the first "grandma" item that we buy only generates +0.1/sec instead of 1 straight up.
-//Lets just try to solidify the clicker and the first "grandma" generator first along with the upgrades to both the clicker and "grandma"
