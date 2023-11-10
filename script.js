@@ -27,13 +27,13 @@ let adders = {
               cost: 10000
             }
 };
-let totalCookiesBaked = 0; // total cookies baked in game session - can ONLY increase
-let globalCount = 0; // global count of all cookies
-let click = 1; // how much each click gives
-let cookieCount = document.getElementById('count');
-let cookie = document.getElementById('click');
-let workingAdders = new Set(); // all the functioning adders (set so no duplicates)
-let cookiesPerSecond = 0;
+var totalCookiesBaked = 0; // total cookies baked in game session - can ONLY increase
+var globalCount = 0; // global count of all cookies
+var click = 1; // how much each click gives
+var cookieCount = document.getElementById('count');
+var cookie = document.getElementById('click');
+var workingAdders = new Set(); // all the functioning adders (set so no duplicates)
+var cookiesPerSecond = 0;
 
 // when the cookie is clicked the global count variable is added to by how much click is
 cookie.onclick = function() {
