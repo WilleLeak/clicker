@@ -78,25 +78,6 @@ const perSecond = () => { // calculates cookies per second
     cookiesPerSecond = cps; // assigns cookies per second to global version
 };
 
-let stickCost = 10; //change this later to adder.adder1.cost
-let stickCount = 0;
-
-// buySticks.addEventListener('click', () => {
-//     if (globalCount >= stickCost) //if you have enough yarn, you are able to buy sticks
-//     {
-//         globalCount -= stickCost; //subtract current cookies by the cost of the sticks
-
-//         // stickCount++; //delete this after adder.adder1.amount is working
-//         adder.adder1.amount += 1; //need this to auto-update
-//         stickCost = Math.ceil(stickCost * 1.2); //stick
-//         updateCookieDisplay();
-//     }
-//     else
-//     {
-//         alert('Not enough yarn!');
-//     }
-// });
-
 buySticks.addEventListener('click', function() {
     if(globalCount >= adders.adder1.cost) {
         globalCount -= adders.adder1.cost; // subtract cost of adder
