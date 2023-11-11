@@ -51,136 +51,136 @@ var adders = {
 var upgrades = {
     mouseUpgrades:      {
         upgrade1: {
-            name: name1,
+            name: 'name1',
             price: 0,
             requirements: {}
         },
         upgrade2: {
-            name: name1,
+            name: 'name1',
             price: 0,
             requirements: {}
         },
         upgrade3: {
-            name: name1,
+            name: 'name1',
             price: 0,
             requirements: {}
         }
     },
     needleUpgrades:     {
         upgrade1: {
-            name: name1,
+            name: 'name1',
             price: 0,
             requirements: {}
         },
         upgrade2: {
-            name: name1,
+            name: 'name1',
             price: 0,
             requirements: {}
         },
         upgrade3: {
-            name: name1,
+            name: 'name1',
             price: 0,
             requirements: {}
         }
     },
     grandmaUpgrades:    {
         upgrade1: {
-            name: name1,
+            name: 'name1',
             price: 0,
             requirements: {}
         },
         upgrade2: {
-            name: name1,
+            name: 'name1',
             price: 0,
             requirements: {}
         },
         upgrade3: {
-            name: name1,
+            name: 'name1',
             price: 0,
             requirements: {}
         }
     },
     sewingUpgrades:     {
         upgrade1: {
-            name: name1,
+            name: 'name1',
             price: 0,
             requirements: {}
         },
         upgrade2: {
-            name: name1,
+            name: 'name1',
             price: 0,
             requirements: {}
         },
         upgrade3: {
-            name: name1,
+            name: 'name1',
             price: 0,
             requirements: {}
         }
     },
     catUpgrades:        {
         upgrade1: {
-            name: name1,
+            name: 'name1',
             price: 0,
             requirements: {}
         },
         upgrade2: {
-            name: name1,
+            name: 'name1',
             price: 0,
             requirements: {}
         },
         upgrade3: {
-            name: name1,
+            name: 'name1',
             price: 0,
             requirements: {}
         }
     },
     shrineUpgrades:     {
         upgrade1: {
-            name: name1,
+            name: 'name1',
             price: 0,
             requirements: {}
         },
         upgrade2: {
-            name: name1,
+            name: 'name1',
             price: 0,
             requirements: {}
         },
         upgrade3: {
-            name: name1,
+            name: 'name1',
             price: 0,
             requirements: {}
         }
     },
     churchUpgrades:     {
         upgrade1: {
-            name: name1,
+            name: 'name1',
             price: 0,
             requirements: {}
         },
         upgrade2: {
-            name: name1,
+            name: 'name1',
             price: 0,
             requirements: {}
         },
         upgrade3: {
-            name: name1,
+            name: 'name1',
             price: 0,
             requirements: {}
         }
     },
     serumUpgrades:      {
         upgrade1: {
-            name: name1,
+            name: 'name1',
             price: 0,
             requirements: {}
         },
         upgrade2: {
-            name: name1,
+            name: 'name1',
             price: 0,
             requirements: {}
         },
         upgrade3: {
-            name: name1,
+            name: 'name1',
             price: 0,
             requirements: {}
         }
@@ -197,6 +197,7 @@ const buySticks = document.getElementById('knitting-needles');  // first adder
 const grandma = document.getElementById('grandma');             // second adder
 
 function updateCookiesDisplaySmooth() { // smoothly updates global count of cookies - no longer need updateCookieDisplay()
+    console.log(globalCount);
     globalCount += cookiesPerSecond / 1000; // calculation for cookies per 1 ms because setInterval runs function each ms
     if(globalCount >= 10000) {
         cookieCount.innerHTML = Math.round(globalCount, 1); // no decimal if globalCount > 10000
