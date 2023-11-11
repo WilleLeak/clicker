@@ -33,7 +33,7 @@ var adders = {
 };
 var totalCookiesBaked = 0;                                      // total cookies baked in game session - can ONLY increase
 var globalCount = 0;                                            // global count of all cookies
-var click = 100;                                                // how much each click gives
+var click = 10000;                                                // how much each click gives
 var cookieCount = document.getElementById('count');             // number display for cookie
 var cookie = document.getElementById('click');                  // actual cookie to click
 var cookiesPerSecond = 0;                                       // cookies baked per second
@@ -61,32 +61,37 @@ const grandma = document.getElementById('grandma');             // second adder
 //     const interval = setInterval(update, 10);
 //}
 
-function updateCookieDisplay() { // for one time things such as clicking
+function updateCookiesDisplaySmooth(globalCookiesPerSecond) {
+    let increment = globalCookiesPerSecond;
+    globalCount += increment / 1000;
+    if(globalCount > 10000) {
+        cookieCount.innerHTML = Math.round(globalCount, 1);
+    } else {
     cookieCount.innerHTML = globalCount.toFixed(1);
+    }
 }
 
 // when the cookie is clicked the global count variable is added to by how much click is
 cookie.onclick = function() {
     globalCount += click;
-    updateCookieDisplay();
 }
 
 const updateButtonDisplay = (button, adder) => {
     button.innerHTML = `${adder.name} - Cost: ${adder.cost}, Amount: ${adder.amount}`;
-}
+};
 
-const addToCount = () => {
+const addToGlobalCount = () => {
     Object.values(adders).forEach(adder => { // for each to loop through each value in the adder object
         globalCount += adder.multiplier * adder.amount; // adds to the global count
-        updateCookieDisplay();
    });
 };
 
 
-const perSecond = () => { // calculates cookies per second
-    let cps = 0;
-    workingAdders.forEach(function(adder) { cps += adder.multiplier * adder.amount }); // adds cookies per second created from each adder
-    cookiesPerSecond = cps; // assigns cookies per second to global version
+const calculatePerSecItems = () => {
+    var cps = 0;
+    Object.keys(adders).forEach(function(adder) { cps += adders[adder].multiplier * adders[adder].amount });
+    cookiesPerSecond = cps;
+    
 };
 
 // unified event listener for all purchase buttons instead of one function per button (i hope this does what i think im making it do)
@@ -100,12 +105,11 @@ document.addEventListener('click', function(purchaseButton) {
             globalCount -= adder.cost;
             adder.amount++;
             adder.cost = Math.round(adder.cost * 1.18, 1);
-            updateCookieDisplay();
             updateButtonDisplay(buttonElement, adder);
         }
 
     }
 }); 
-
-
-setInterval(addToCount, 1000);
+setInterval(calculatePerSecItems, 1);
+setInterval(function() { updateCookiesDisplaySmooth(cookiesPerSecond) }, 1);
+setInterval(addToGlobalCount, 1000);
