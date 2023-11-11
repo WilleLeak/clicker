@@ -48,6 +48,12 @@ var adders = {
         cost: 500000
     }
 };
+// upgrades is an object with objects inside of it
+// each subobject contains:
+//      upgrades(object with upgrade details)
+//          name(name of upgrade)
+//          price(cost of upgrade)
+//          requirements(requirements for upgrade to appear and be purchased)
 var upgrades = {
     mouseUpgrades:      {
         upgrade1: {
@@ -193,11 +199,8 @@ var totalClicks = 0;                                            // total number 
 var cookieCount = document.getElementById('count');             // number display for cookie
 var cookie = document.getElementById('click');                  // actual cookie to click
 var cookiesPerSecond = 0;                                       // cookies baked per second
-const buySticks = document.getElementById('knitting-needles');  // first adder
-const grandma = document.getElementById('grandma');             // second adder
 
 function updateCookiesDisplaySmooth() { // smoothly updates global count of cookies - no longer need updateCookieDisplay()
-    console.log(globalCount);
     globalCount += cookiesPerSecond / 1000; // calculation for cookies per 1 ms because setInterval runs function each ms
     if(globalCount >= 10000) {
         cookieCount.innerHTML = Math.round(globalCount, 1); // no decimal if globalCount > 10000
@@ -213,7 +216,7 @@ cookie.onclick = function() {
 }
 
 const updateButtonDisplay = (button, adder) => {
-    button.innerHTML = `${adder.name} - Cost: ${adder.cost}, Amount: ${adder.amount}`;
+    button.innerHTML = `${adder.name} - Cost: ${adder.cost}, Amount: ${adder.amount}`; // button format for now
 };
 
 const addToGlobalCount = () => {
@@ -224,7 +227,7 @@ const addToGlobalCount = () => {
 
 const calculatePerSecItems = () => {
     var cps = 0;
-    Object.keys(adders).forEach(function(adder) { cps += adders[adder].multiplier * adders[adder].amount });
+    Object.keys(adders).forEach(function(adder) { cps += adders[adder].multiplier * adders[adder].amount }); // loops through adders to add to cps
     cookiesPerSecond = cps;
 };
 
@@ -236,11 +239,11 @@ document.addEventListener('click', function(purchaseButton) {
         var adder = adders[adderKey]; // specific adder object
 
         if(globalCount >= adder.cost) {
-            globalCount -= adder.cost;
-            adder.amount++;
-            adder.cost = Math.round(adder.cost * 1.18, 1);
-            updateButtonDisplay(buttonElement, adder);
-            calculatePerSecItems();
+            globalCount -= adder.cost; // purchases adder
+            adder.amount++; // adds to amount
+            adder.cost = Math.round(adder.cost * 1.18, 1); // rounds cost so no decimal
+            updateButtonDisplay(buttonElement, adder); // updates button with info
+            calculatePerSecItems(); // changes cookiesPerSec calculation
         }
     }
 }); 
