@@ -20,54 +20,42 @@ var adders = {
               amount: 0,
               cost: 1100
             },
-    adder4: { name: 'LATER1',
+    adder4: { name: 'Cat',
               multiplier: 24,
               amount: 0,
               cost: 3400
             },
-    adder5: { name: 'LATER2',
+    adder5: { name: 'Shrine',
               multiplier: 86, 
               amount: 0,
               cost: 10000
+            },
+    adder6: { name: 'Church',
+              multiplier: 195,
+              amount: 0,
+              cost: 120000
+            },
+    adder7: { name: 'Cat Serum',
+              multiplier: 498,
+              amount: 0,
+              cost: 500000
             }
 };
 var totalCookiesBaked = 0;                                      // total cookies baked in game session - can ONLY increase
 var globalCount = 0;                                            // global count of all cookies
-var click = 10000;                                                // how much each click gives
+var click = 1;                                              // how much each click gives
 var cookieCount = document.getElementById('count');             // number display for cookie
 var cookie = document.getElementById('click');                  // actual cookie to click
 var cookiesPerSecond = 0;                                       // cookies baked per second
 const buySticks = document.getElementById('knitting-needles');  // first adder
 const grandma = document.getElementById('grandma');             // second adder
 
-// need to figure out how promises work a lil more before i get this properly working
-// function updateCookieDisplaySmooth(targetCount) { // smooth increase of globalCount, mostly for adders to not add in one chunk
-//     const startCount = parseFloat(cookieCount.innerHTML);
-//     const startTime = new Date().getTime();
-
-//     function update() {
-//         const currentTime = new Date().getTime();
-//         const elapsedTime = currentTime - startTime;
-
-//         if(elapsedTime < 1000) { // 1000 ms = 1 sec
-//             const progress = elapsedTime / 1000;
-//             const newCount = startCount + (targetCount - startCount) * progress;
-//             cookieCount.innerHTML = newCount.toFixed(1);
-//         } else {
-//             cookieCount.innerHTML = targetCount.toFixed(1);
-//             clearInterval(interval);
-//         }
-//     }
-//     const interval = setInterval(update, 10);
-//}
-
-function updateCookiesDisplaySmooth(globalCookiesPerSecond) {
-    let increment = globalCookiesPerSecond;
-    globalCount += increment / 1000;
-    if(globalCount > 10000) {
-        cookieCount.innerHTML = Math.round(globalCount, 1);
+function updateCookiesDisplaySmooth() { // smoothly updates global count of cookies - no longer need updateCookieDisplay()
+    globalCount += cookiesPerSecond / 1000; // calculation for cookies per 1 ms because setInterval runs function each ms
+    if(globalCount >= 10000) {
+        cookieCount.innerHTML = Math.round(globalCount, 1); // no decimal if globalCount > 10000
     } else {
-    cookieCount.innerHTML = globalCount.toFixed(1);
+    cookieCount.innerHTML = globalCount.toFixed(1); // shows decimal to one place
     }
 }
 
@@ -105,10 +93,11 @@ document.addEventListener('click', function(purchaseButton) {
             adder.amount++;
             adder.cost = Math.round(adder.cost * 1.18, 1);
             updateButtonDisplay(buttonElement, adder);
+            calculatePerSecItems();
         }
-
     }
 }); 
-setInterval(calculatePerSecItems, 1);
-setInterval(function() { updateCookiesDisplaySmooth(cookiesPerSecond) }, 1);
+
+// all functions running continuously
+setInterval(updateCookiesDisplaySmooth, 1);
 setInterval(addToGlobalCount, 1000);

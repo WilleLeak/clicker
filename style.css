@@ -83,8 +83,15 @@ body {
     align-items: center;
 }
 
+.adder-purchase-column h1 {
+    font-size: 50px;
+    margin: 10px;
+}
+
 .adder-purchase-container button {
     width: 100%;
-    height: 10%;
+    height: 20%;
+    min-height: 60px;
     margin-bottom: 10px;
+    font-size: 30px;
 }
