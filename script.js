@@ -86,7 +86,6 @@ const addToGlobalCount = () => {
    });
 };
 
-
 const calculatePerSecItems = () => {
     var cps = 0;
     Object.keys(adders).forEach(function(adder) { cps += adders[adder].multiplier * adders[adder].amount });
