@@ -199,6 +199,7 @@ var totalClicks = 0;                                            // total number 
 var cookieCount = document.getElementById('count');             // number display for cookie
 var cookie = document.getElementById('click');                  // actual cookie to click
 var cookiesPerSecond = 0;                                       // cookies baked per second
+var titleTab = document.getElementById('website-title-tab');    // title of the tab of the website
 
 function updateCookiesDisplaySmooth() { // smoothly updates global count of cookies - no longer need updateCookieDisplay()
     globalCount += cookiesPerSecond / 1000; // calculation for cookies per 1 ms because setInterval runs function each ms
@@ -231,6 +232,14 @@ const calculatePerSecItems = () => {
     cookiesPerSecond = cps;
 };
 
+const updateWebsiteName = () => { 
+    if(globalCount >= 10000) {
+        titleTab.innerHTML = `${Math.round(globalCount, 1)} Strings`
+    } else {
+        titleTab.innerHTML = `${globalCount.toFixed(1)} Strings`;
+    }
+};
+
 // unified event listener for all purchase buttons instead of one function per button (i hope this does what i think im making it do)
 document.addEventListener('click', function(purchaseButton) {
     if(purchaseButton.target.classList.contains('adder-purchase-button')) {
@@ -246,8 +255,10 @@ document.addEventListener('click', function(purchaseButton) {
             calculatePerSecItems(); // changes cookiesPerSec calculation
         }
     }
-}); 
+});
+
 
 // all functions running continuously
 setInterval(updateCookiesDisplaySmooth, 1);
 setInterval(addToGlobalCount, 1000);
+setInterval(updateWebsiteName, 5000);
