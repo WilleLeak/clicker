@@ -76,3 +76,15 @@ body {
     background-color: lightsteelblue;
     border: 1px solid white;
 } */
+
+.adder-purchase-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.adder-purchase-container button {
+    width: 100%;
+    height: 10%;
+    margin-bottom: 10px;
+}
