@@ -89,24 +89,23 @@ const perSecond = () => { // calculates cookies per second
     cookiesPerSecond = cps; // assigns cookies per second to global version
 };
 
-buySticks.addEventListener('click', function() {
-    if(globalCount >= adders.adder1.cost) {
-        globalCount -= adders.adder1.cost; // subtract cost of adder
-        adders.adder1.amount++; // increase num of adders
-        adders.adder1.cost = Math.round(adders.adder1.cost * 1.18, 1); // increase cost of adder
-        updateCookieDisplay();
-        updateButtonDisplay(buySticks, adders.adder1);
-    } // if you wanna add an alert you can i just feel like thats annoying to have to click away
-});
 // unified event listener for all purchase buttons instead of one function per button (i hope this does what i think im making it do)
-// document.addEventListener('click', function(purchaseButton) {
-//     if(purchaseButton.target.classList.contains('adder-purchase-button')) {
-//         var buttonId = purchaseButton.target.id;
-//         var button = purchaseButton.getElementById(buttonId);
-        
-//         if(globalCount.adders)
-//     }
-// })
+document.addEventListener('click', function(purchaseButton) {
+    if(purchaseButton.target.classList.contains('adder-purchase-button')) {
+        var buttonElement = document.getElementById(purchaseButton.target.id); // button that is being modified
+        var adderKey = purchaseButton.target.dataset.adderKey; // adder key to object being referenced
+        var adder = adders[adderKey]; // specific adder object
+
+        if(globalCount >= adder.cost) {
+            globalCount -= adder.cost;
+            adder.amount++;
+            adder.cost = Math.round(adder.cost * 1.18, 1);
+            updateCookieDisplay();
+            updateButtonDisplay(buttonElement, adder);
+        }
+
+    }
+}); 
 
 
 setInterval(addToCount, 1000);
