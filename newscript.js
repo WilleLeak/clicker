@@ -15,7 +15,10 @@ Game.Launch = function() {
         Game.stringsPerSecRaw = 0; // raw Sps, no buffs applied
         Game.yarnClicks = 0; // +1 per click
         Game.yarnMadeFromClicking = 0; // increases each time per yarn click
-        Game.globalSpsMultiplier = 1;
+        Game.globalSpsMultiplier = 1; // multiplier for sps
+        Game.buildingSps = 0;
+        Game.buildingsOwned = 0;
+        Game.fps = 30;
 
 
         Game.windowH = window.innerHeight;
@@ -48,8 +51,16 @@ Game.Launch = function() {
             Game.stringsPerSec = 0;
             var multiplier = 1;
 
-            Game.stringsPerSec = 
+            for(var i in Game.Objects) {
+                var building = Game.Objects[i];
+                building.storedSps = building.sps;
+                building.storedTotalSps = building.amount * me.storedSps;
+                Game.stringsPerSec += building.storedTotalSps;
+            }
+            Game.buildingSps = Game.stringsPerSec; // only building sps
+
             Game.globalSpsMultiplier = multiplier;
+            Game.stringsPerSec *= globalSpsMultiplier;
             Game.recalculateSps = false;
         }
 
@@ -57,7 +68,7 @@ Game.Launch = function() {
         //========================================================================
         // GAME BUILDINGS
         //========================================================================
-       
+        Game.Objects = {}
         Game.priceMultiplier = 1.15;
         Game.Building = function(name, description, icon, price, sps, buyFunction) {
             this.name = name;
@@ -68,32 +79,48 @@ Game.Launch = function() {
             this.baseSps = sps;
             this.sps = this.baseSps;
             this.buyFunction = buyFunction;
+            this.eachFrame = 0;
 
             this.amount = 0;
 
             this.getPrice = function() { // returns price of building
-                var price = this.basePrice * Math.pow(Game.priceMultiplier, Math.max(0, this.amount));
-                return Math.ceil(price);
+                var price = this.basePrice * Math.pow(Game.priceMultiplier, Math.max(0, this.amount)); // price of item x
+                return Math.ceil(price); // round up
             }
 
 
             this.getSellMultiplier = function() {
-                var multiplier = .25;
-
+                var multiplier = .25; // sell stuff for 1/4 of purchase price
                 return multiplier;
             }
 
             this.buy = function() {
                 var success = false;
-                var bought = 0;
 
-                bought++;
+                var price = this.getPrice();
                 Game.spend(price);
                 this.amount++;
                 price=this.getPrice();
                 this.price = price;
+                Game.recalculateSps = true;
+                Game.buildingsOwned++;
 
+                success = true;
+            }
 
+            this.sell = function() {
+                var success = false;
+
+                var price = this.getPrice();
+                var returnMultipler = this.getSellMultiplier();
+                price = Math.floor(price * returnMultipler);
+                Game.currentStrings += price;
+                this.amount--;
+                this.price = price;
+                Game.buildingsOwned++;
+                Game.recalculateSps = true;
+
+                success = true;
             }
         }
 
@@ -128,11 +155,17 @@ Game.Launch = function() {
     } // end of initialization
 
     Game.Logic = function() {
+        if(Game.recalculateSps) { Game.calculateSps() }
+
 
     }
 
     Game.Draw = function() {
 
+    }
+
+    Game.Loop = function() {
+        
     }
 
 
