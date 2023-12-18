@@ -6,16 +6,22 @@ body {
     margin: 0;
     padding: 0;
     display: flex;
+    background-image: url(https://t3.ftcdn.net/jpg/06/19/32/58/240_F_619325893_bzogRG6UW3jzZzs9zQgYJIS2mgWZT9k8.jpg); /*cat background image*/
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
   }
 
   .left-column {
     width: 25%;
     margin: 20px;
-    background-color: lightblue;
+    background-color: slategrey;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    border-radius: 100px;
   }
 
   .right-column {
@@ -24,6 +30,7 @@ body {
     background-color: slategrey;
     display: flex;
     flex-direction: column;
+    border-radius: 50px;
   }
 
   .container {
@@ -32,13 +39,16 @@ body {
     margin: 10px;
   }
 
- .top-right {
+ /* .top-right {
     height: 25%;
     margin: 25px;
     margin-bottom: 10px;
     margin-top: 20px;
     background-color: lightsalmon;
- }
+    border-radius: 30px;
+    background-image: url(https://www.shutterstock.com/image-vector/brick-wall-seamless-texture-ancient-600nw-2005985150.jpg);
+    background-size: 210px;
+ } */
  
  .bottom-right {
     height: 70%;
@@ -56,16 +66,17 @@ body {
     width: 25%;
     padding: 30px;
     border: 2px, solid, black; /* this border will just not work idk; something about collapsed borders maybe*/
+    border-radius: 20px;
  }
 
  .click {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50%;
-    width: 50%;
-    margin: 20px;
-    background-color: lightseagreen;
+    background-size: cover;
+    border-radius: 100px;
+    background-color: lightblue;
+    
  }
 /* button {
     display: flex;
@@ -108,4 +119,23 @@ body {
     min-width: 100px;
     min-height: 100px;
     margin: 10px;
+}
+
+
+.toggleCont, .toggle-button {
+    display: none;
+    height: 25%;
+    margin: 25px;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    background-color: lightsalmon;
+    border-radius: 30px;
+}
+
+.active-container {
+    display:block;
+}
+
+.active-button {
+    display: block;
 }

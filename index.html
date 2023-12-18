@@ -4,21 +4,32 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="website-title-tab">0 Strings</title>
+    <title id="website-title-tab">0 Yarn</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="left-column">
         <h1 class="display" id="count">0</h1>
-        <h2 class="yarnPerSecondDisplay" id="YpS">0 Strings per second</h2>
+        <h2 class="yarnPerSecondDisplay" id="YpS">0 yarn per second</h2>
         <p>Click the button!</p>
-        <button class="click" id="click"></button>
+        <button class="click" id="click" style="background-image: url(https://static.vecteezy.com/system/resources/previews/026/721/064/non_2x/yarn-ball-skein-of-yarn-for-knitting-illustration-balls-of-knitting-wool-sticker-png.png); height: 120px; width:120px; border: none;"></button>
     </div>
     
     <div class="right-column">
-
         <div class="top-right">
-            <h1>Upgrades</h1>
+
+            <button id="upgradeSwitch" class="toggle-button">Upgrades</button>
+            <button id="statSwitch" class="toggle-button active-button">Stats</button>
+
+
+            <div id="upgradeContainer" class="toggleCont active-container">
+                <p>test upgrade</p>
+            </div>
+    
+            <div id="statContainer" class="toggleCont">
+                <p>test stats</p>
+            </div>
+
             <div class="upgrade-purchase-section">
 
             </div>

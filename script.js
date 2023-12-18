@@ -235,7 +235,7 @@ const updateWebsiteName = () => { // this updates the tab name, its just the num
 };
 
 const updateYpS = () => { // updates the Yps counter below the total strings
-    updateElementNumbers(Yps, cookiesPerSecond, 'strings per second');
+    updateElementNumbers(Yps, cookiesPerSecond, 'yarn per second');
 };
 
 //                                  END OF DISPLAY UPDATE FUNCTIONS
@@ -309,3 +309,21 @@ const upgradeClick = () => {
 setInterval(updateCookiesDisplaySmooth, 1);
 setInterval(addToGlobalCount, 1_000);
 setInterval(updateWebsiteName, 5_000);
+
+
+// Switching between upgrade menu and stats menu
+
+document.getElementById('upgradeSwitch').addEventListener('click', function() {
+    document.getElementById('upgradeContainer').classList.add('active-container');
+    document.getElementById('statContainer').classList.remove('active-container');
+    document.getElementById('upgradeSwitch').classList.remove('active-button');
+    document.getElementById('statSwitch').classList.add('active-button');
+})
+
+
+document.getElementById('statSwitch').addEventListener('click', function() {
+    document.getElementById('statContainer').classList.add('active-container');
+    document.getElementById('upgradeContainer').classList.remove('active-container');
+    document.getElementById('statSwitch').classList.remove('active-button');
+    document.getElementById('upgradeSwitch').classList.add('active-button');
+})
