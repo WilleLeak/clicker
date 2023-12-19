@@ -227,11 +227,11 @@ const updateElementNumbers = (element, number, messageString) => {
 
 function updateCookiesDisplaySmooth() { // updates global cookie display html
     globalCount += cookiesPerSecond / 1_000; // cookies per second / 1_000 because this runs at 1ms intervals
-    updateElementNumbers(cookieCount, globalCount, 'strings');
+    updateElementNumbers(cookieCount, globalCount, 'yarn');
 }
 
 const updateWebsiteName = () => { // this updates the tab name, its just the number of strings you currently have
-    updateElementNumbers(titleTab, globalCount, 'strings');
+    updateElementNumbers(titleTab, globalCount, 'yarn');
 };
 
 const updateYpS = () => { // updates the Yps counter below the total strings
@@ -312,7 +312,6 @@ setInterval(updateWebsiteName, 5_000);
 
 
 // Switching between upgrade menu and stats menu
-
 document.getElementById('upgradeSwitch').addEventListener('click', function() {
     document.getElementById('upgradeContainer').classList.add('active-container');
     document.getElementById('statContainer').classList.remove('active-container');
@@ -327,3 +326,26 @@ document.getElementById('statSwitch').addEventListener('click', function() {
     document.getElementById('statSwitch').classList.remove('active-button');
     document.getElementById('upgradeSwitch').classList.add('active-button');
 })
+
+
+// trying to work on adding upgrades in and making them "unhidden" after the requirement is met. 
+// It seems we might have to change the adder and upgrade's format so we dont have to brute force it.
+
+
+
+// document.addEventListener('DOMContentLoaded', function()
+// {
+//     checkPrerequisites();
+
+//     setInterval(function()
+//     {
+//         checkPrerequisites();
+//     }, 100);
+// })
+
+// function checkPrerequisites() {
+//     if (adders.adder1.amount >= upgrade.mouseUpgrades.upgrade1.requirements.amount)
+//     {
+//         document.getElementById(upgrade1).classList.remove('hidden');
+//     }
+// }
